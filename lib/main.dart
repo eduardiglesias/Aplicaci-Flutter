@@ -476,9 +476,12 @@ class Phone extends StatefulWidget {
 class _PhoneState extends State<Phone> {
   final dbHelper = DatabaseHelper.instance;
 
-  TextEditingController updateController = TextEditingController();
+  TextEditingController idUpdateController = TextEditingController();
+  TextEditingController phoneUpdateController = TextEditingController();
+  TextEditingController nameUpdateController = TextEditingController();
+  TextEditingController passwordUpdateController = TextEditingController();
 
-  // TODO: Add text editing controllers (101)
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -494,6 +497,17 @@ class _PhoneState extends State<Phone> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
+                    controller: idUpdateController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'ID',
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  child: TextField(
+                    controller: phoneUpdateController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Phone Number',
@@ -503,10 +517,20 @@ class _PhoneState extends State<Phone> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
-                    controller: updateController,
+                    controller: nameUpdateController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'New Phone Number',
+                      labelText: 'Name',
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  child: TextField(
+                    controller: passwordUpdateController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Password',
                     ),
                   ),
                 ),
@@ -516,8 +540,11 @@ class _PhoneState extends State<Phone> {
                     child: ElevatedButton(
                         child: const Text('Change Phone'),
                       onPressed: () {
-                        String Phone = updateController.text;
-                        _update();
+                          int ID = int.parse(idUpdateController.text);
+                          String Phone = phoneUpdateController.text;
+                          String Name = nameUpdateController.text;
+                          String Password = passwordUpdateController.text;
+                          _update(ID,Phone,Name,Password);
                       },
                     )
                 ),
@@ -528,15 +555,17 @@ class _PhoneState extends State<Phone> {
 
               ],
             )));
-
   }
-  void _update() async {
+  void _update(ID, Phone, Name, Password) async {
     // row to update
     Map<String, dynamic> row = {
-      DatabaseHelper.columnId   : 1,
-      DatabaseHelper.columnPhone : 'Mary',
+      DatabaseHelper.columnId: ID,
+      DatabaseHelper.columnPhone: Phone,
+      DatabaseHelper.columnName: Name,
+      DatabaseHelper.columnPassword: Password
     };
     final rowsAffected = await dbHelper.update(row);
+    print('updated $rowsAffected row(s)');
   }
 
   void _query() async {
