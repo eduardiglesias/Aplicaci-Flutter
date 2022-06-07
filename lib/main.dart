@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 import 'database_helper.dart';
 
 void main() => runApp(const MyApp());
@@ -222,20 +223,25 @@ class _RegistreState extends State<Registre> {
                   }
                 )
             ),
-             ElevatedButton(
-                    child: Text('QUERY'),
-                    onPressed: _query,
+            Container(
+                height: 60,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: ElevatedButton(
+                    child: const Text('QUERY'),
+                    onPressed: _query
+
                 )
+            ),
           ],
         ));
   }
 
 
-  void _insert(PhoneNumber, Name, Password) async {
+  void _insert(Phone, Name, Password) async {
     // row to insert
     Map<String, dynamic> row = {
 
-      DatabaseHelper.columnPhone: PhoneNumber,
+      DatabaseHelper.columnPhone: Phone,
       DatabaseHelper.columnName: Name,
       DatabaseHelper.columnPassword: Password,
     };
@@ -360,7 +366,7 @@ class Perfil1 extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.red,
+          primarySwatch: Colors.blue,
         ),
         home: Perfil()
 
@@ -389,12 +395,10 @@ class _PerfilState extends State<Perfil> {
           children: <Widget>[
             SizedBox(height: 90.0),
             CircleAvatar(
-                backgroundImage: AssetImage(
-                    "assets/perfil1.jpg"),
                 radius: 65.0),
             Padding(
               padding: const EdgeInsets.only(top: 30.0),
-              child: Text("Cillian Murphy",
+              child: Text("Eduard Iglesias",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -402,34 +406,13 @@ class _PerfilState extends State<Perfil> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
-              child: Text("ACTOR",
+              child: Text("Home",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600)),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 24.0, right: 24, top: 25, bottom: 24),
-              child: Text(
-                style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold
-                ),
-                "Sobre mí:",
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 24.0, right: 24, top: 2, bottom: 24),
-              child: Text(
-                style: TextStyle(
-                  fontSize: 15,
-                ),
-                "Actor de cine, teatro y televisión irlandés. Empecé mi carrera artística como músico de rock.",
-              ),
-            ),
+
             SizedBox(height: 10.0),
             ButtonBar(
               children: <Widget>[
@@ -493,10 +476,7 @@ class Phone extends StatefulWidget {
 class _PhoneState extends State<Phone> {
   final dbHelper = DatabaseHelper.instance;
 
-  TextEditingController nombreController = TextEditingController();
-  TextEditingController apellidosController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController contrasenyaController = TextEditingController();
+  TextEditingController updateController = TextEditingController();
 
   // TODO: Add text editing controllers (101)
   @override
@@ -523,6 +503,7 @@ class _PhoneState extends State<Phone> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
+                    controller: updateController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'New Phone Number',
@@ -534,23 +515,36 @@ class _PhoneState extends State<Phone> {
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: ElevatedButton(
                         child: const Text('Change Phone'),
-                        onPressed: (){
-                        }
+                      onPressed: () {
+                        String Phone = updateController.text;
+                        _update();
+                      },
                     )
                 ),
                 ElevatedButton(
                     child: Text('QUERY'),
-                    onPressed: (){
-
-                    }
+                    onPressed: _query
                 )
 
               ],
             )));
 
   }
-}
+  void _update() async {
+    // row to update
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnId   : 1,
+      DatabaseHelper.columnPhone : 'Mary',
+    };
+    final rowsAffected = await dbHelper.update(row);
+  }
 
+  void _query() async {
+    final allRows = await dbHelper.queryAllRows();
+    print('query all rows:');
+    allRows.forEach(print);
+  }
+}
 // ----------------------- Eliminar conta --------------------------------------
 
 class Delete1 extends StatelessWidget {
@@ -610,8 +604,8 @@ class _DeleteState extends State<Delete> {
                   child: ElevatedButton(
                       child: const Text('Delete Account'),
                       onPressed: (){
-                       String  PhoneNumber = deleteController.text;
-                        _delete(PhoneNumber);
+                        int ID = int.parse(deleteController.text);
+                        _delete(ID);
                       }
                   )
               ),
@@ -625,10 +619,10 @@ class _DeleteState extends State<Delete> {
           )));
 
     }
-  void _delete(PhoneNumber) async {
+  void _delete(ID) async {
     // Assuming that the number of rows is the id for the last row.
     final id = await dbHelper.queryRowCount();
-    final rowsDeleted = await dbHelper.delete(PhoneNumber);
+    final rowsDeleted = await dbHelper.delete(ID);
     print('deleted $rowsDeleted row(s): row $id');
   }
   void _query() async {

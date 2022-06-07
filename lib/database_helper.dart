@@ -6,16 +6,15 @@ import 'package:path_provider/path_provider.dart';
 
 class DatabaseHelper {
 
-  static final _databaseName = "MyDatabase.db";
+  static final _databaseName = "MyDatabasEdu.db";
   static final _databaseVersion = 1;
 
   static final table = 'my_table';
 
-  static final idUsuari = 'idUsuari';
-  static final columnPhone = 'phone';
-  static final columnName = 'name';
-  static final columnPassword = 'password';
-
+  static final columnId = 'Id';
+  static final columnPhone = 'Phone';
+  static final columnName = 'Name';
+  static final columnPassword = 'Password';
 
   // make this a singleton class
   DatabaseHelper._privateConstructor();
@@ -46,8 +45,8 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
           CREATE TABLE $table (
-            $idUsuari INTEGER  PRIMARY KEY AUTOINCREMENT,
-            $columnPhone TEXT NOT NULL,
+            $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+            $columnPhone INTEGER NOT NULL,
             $columnName TEXT NOT NULL,
             $columnPassword TEXT NOT NULL
           )
@@ -71,6 +70,7 @@ class DatabaseHelper {
     return await db.query(table);
   }
 
+
   // All of the methods (insert, query, update, delete) can also be done using
   // raw SQL commands. This method uses a raw query to give the row count.
   Future<int?> queryRowCount() async {
@@ -82,14 +82,14 @@ class DatabaseHelper {
   // column values will be used to update the row.
   Future<int> update(Map<String, dynamic> row) async {
     Database db = await instance.database;
-    int id = row[idUsuari];
-    return await db.update(table, row, where: '$idUsuari = ?', whereArgs: [id]);
+    int id = row[columnId];
+    return await db.update(table, row, where: '$columnId = ?', whereArgs: [id]);
   }
 
   // Deletes the row specified by the id. The number of affected rows is
   // returned. This should be 1 as long as the row exists.
   Future<int> delete(int id) async {
     Database db = await instance.database;
-    return await db.delete(table, where: '$idUsuari = ?', whereArgs: [id]);
+    return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
   }
 }
