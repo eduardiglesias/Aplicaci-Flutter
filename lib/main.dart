@@ -352,7 +352,6 @@ class _MyStatefulWidgetState_home extends State<MyStatefulWidget_home> {
         ));
   }
 }
-/*------------------------------Menu Principal--------------------------------*/
 
 // ----------------------- Pagina conta pers. ----------------------------------
 
@@ -441,13 +440,26 @@ class _PerfilState extends State<Perfil> {
                 ),
               ],
             ),
+            SizedBox(height: 1.0),
+            ButtonBar(
+              children: <Widget>[
+                ElevatedButton(
+                  child: Text('Home Page'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => homePage()),
+                    );
+                  },
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
 }
-
 // ----------------------- Canviar telefon. --------------------------------
 
 class Phone1 extends StatelessWidget {
@@ -623,7 +635,7 @@ class _DeleteState extends State<Delete> {
                   controller: deleteController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Phone Number',
+                    labelText: 'ID',
                   ),
                 ),
               ),
@@ -660,5 +672,524 @@ class _DeleteState extends State<Delete> {
     allRows.forEach(print);
   }
 }
+//------------------------------Menú Principal----------------------------------
+class menu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            child: Text(
+              'MENU',
+              style: TextStyle(color: Colors.white, fontSize: 25),
+            ),
+            decoration: BoxDecoration(
+                color: Colors.blue,
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage('assets/logo.png'))),
+          ),
+          ListTile(
+            title: Text('Home'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => homePage()),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('Perfil'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Perfil1()),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('Hores demanades'),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            title: Text('Logout'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyApp()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
 
+//-----------------------------Home Page----------------------------------------
+class homePage extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: homePage1()
+
+    );
+  }
+}
+
+class homePage1 extends StatefulWidget {
+
+
+  @override
+  _homePage createState() => _homePage();
+}
+
+class _homePage extends State<homePage1> {
+  TextEditingController perruqueria1 = TextEditingController();
+
+  // TODO: Add text editing controllers (101)
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          children: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              child: Image.asset('assets/logo.png'),
+            ),
+            ElevatedButton(
+              child: Text('MENU'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => menu()),
+                );
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0),
+              child: Text("Perruqueria Masculina STIL",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 22)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Text("Torelló - 938 59 38 02",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 24.0, right: 24, top: 25, bottom: 24),
+              child: Text(
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold
+                ),
+                "Direcció:",
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 24.0, right: 24, top: 2, bottom: 24),
+              child: Text(
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+                "Carrer de Manlleu, 40, 08570 Torelló, Barcelona",
+              ),
+            ),
+            Container(
+                height: 60,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: ElevatedButton(
+                    child: const Text('Demanar Hora'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => P1()),
+                    );
+                  },
+                )
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0),
+              child: Text("Toni imatge barber shop",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 22)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Text("Torelló - 636 36 96 76",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 24.0, right: 24, top: 25, bottom: 24),
+              child: Text(
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold
+                ),
+                "Direcció:",
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 24.0, right: 24, top: 2, bottom: 24),
+              child: Text(
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+                "Carrer del Collsacabra, 8, 08570 Torelló, Barcelona",
+              ),
+            ),
+            Container(
+                height: 60,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: ElevatedButton(
+                  child: const Text('Demanar Hora'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => P2()),
+                    );
+                  },
+                )
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0),
+              child: Text("Txell Home Dona",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 22)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Text("Torelló - 629 41 39 44",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 24.0, right: 24, top: 25, bottom: 24),
+              child: Text(
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold
+                ),
+                "Direcció:",
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 24.0, right: 24, top: 2, bottom: 24),
+              child: Text(
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+                "Carrer del Congost, 2, baixos, 08570 Torelló, Barcelona",
+              ),
+            ),
+            Container(
+                height: 60,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: ElevatedButton(
+                  child: const Text('Demanar Hora'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => P3()),
+                    );
+                  },
+                )
+            ),
+
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//-----------------------------Perruqueria1-------------------------------------
+class P1 extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: hora1()
+
+    );
+  }
+}
+
+class hora1 extends StatefulWidget {
+
+
+  @override
+  _hora1 createState() => _hora1();
+}
+
+class _hora1 extends State<hora1> {
+
+  TextEditingController perruqueria1Controller = TextEditingController();
+  // TODO: Add text editing controllers (101)
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          children: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              child: Image.asset('assets/logo.png'),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: perruqueria1Controller,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Introdueix hora',
+                ),
+              ),
+            ),
+
+            Container(
+                height: 60,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: ElevatedButton(
+                  child: const Text('Demanar Hora'),
+                  onPressed: () {
+                    print(perruqueria1Controller.text);
+                  },
+                )
+            ),
+            Container(
+                height: 60,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: ElevatedButton(
+                  child: const Text('BACK'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => homePage()),
+                    );
+                  },
+                )
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//-----------------------------Perruqueria2-------------------------------------
+class P2 extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: hora2()
+
+    );
+  }
+}
+
+class hora2 extends StatefulWidget {
+
+
+  @override
+  _hora2 createState() => _hora2();
+}
+
+class _hora2 extends State<hora2> {
+
+  TextEditingController perruqueria2Controller = TextEditingController();
+  // TODO: Add text editing controllers (101)
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          children: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              child: Image.asset('assets/logo.png'),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: perruqueria2Controller,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Introdueix hora',
+                ),
+              ),
+            ),
+
+            Container(
+                height: 60,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: ElevatedButton(
+                  child: const Text('Demanar Hora'),
+                  onPressed: () {
+                    print(perruqueria2Controller.text);
+                  },
+                )
+            ),
+            Container(
+                height: 60,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: ElevatedButton(
+                  child: const Text('BACK'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => homePage()),
+                    );
+                  },
+                )
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//-----------------------------Perruqueria3-------------------------------------
+class P3 extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: hora3()
+
+    );
+  }
+}
+
+class hora3 extends StatefulWidget {
+
+
+  @override
+  _hora3 createState() => _hora3();
+}
+
+class _hora3 extends State<hora3> {
+
+  TextEditingController perruqueria3Controller = TextEditingController();
+  // TODO: Add text editing controllers (101)
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          children: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              child: Image.asset('assets/logo.png'),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: perruqueria3Controller,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Introdueix hora',
+                ),
+              ),
+            ),
+
+            Container(
+                height: 60,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: ElevatedButton(
+                  child: const Text('Demanar Hora'),
+                  onPressed: () {
+                    print(perruqueria3Controller.text);
+                  },
+                )
+            ),
+            Container(
+                height: 60,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: ElevatedButton(
+                  child: const Text('BACK'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => homePage()),
+                    );
+                  },
+                )
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
